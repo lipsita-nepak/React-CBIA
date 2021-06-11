@@ -22,9 +22,9 @@ import Bank from './components/bank';
 import AddBank from './components/addBank';
 import UpdateBank from './components/updateBank';
 import ViewBank from './components/viewBank';
-import Bid from './components/bid';
-import AddBid from './components/addBid';
-import BidDetails from './components/bidDetails';
+import Bidder from './components/bidders';
+import AddBidder from './components/addBidder'
+import BidderDetails from './components/updateBidder'
 
 function App() {
   return (
@@ -35,6 +35,10 @@ function App() {
                     <Route path="/" exact component={Home} />
                     <Route path="/home"exact component={Home}/>
                     <div className="container">
+                    <Route path="/bidder/add" component={AddBidder} />
+                    <Route path="/bidder/get/:id" component={BidderDetails} />
+                    <Route path="/bidder/update/:id" component={BidderDetails} />
+                    <Route path="/bidder" component={Bidder}/>
                       <Route path= "/add-farmer" exact component = {AddFarmer} />
                       <Route path ="/view-farmer/:userId" component ={ViewFarmer} /> 
                        <Route path="/update-farmer/:userId" component = {UpdateFarmer} /> 
