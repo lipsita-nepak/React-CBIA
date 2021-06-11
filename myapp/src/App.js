@@ -25,6 +25,7 @@ import ViewBank from './components/viewBank';
 import Bidder from './components/bidders';
 import AddBidder from './components/addBidder'
 import BidderDetails from './components/updateBidder'
+
 function App() {
   return (
     <div>
@@ -57,6 +58,11 @@ function App() {
                     <Route path= "/create-user" exact component = {CreateUser}></Route>
                     <Route path= "/update-user/:userid" exact component = {UpdateUser}></Route>
                     <Route path= "/view-user/:userid" exact component = {ViewUser}></Route>
+                    <Route  path="/bid/add" component={AddBid}/>
+        <Route  path="/bid/updateBid/:bidId" component={BidDetails}/>
+        <Route path="/bid/view/:bidId" component={BidDetails} />
+        <Route  path="/bid/get/:bidId" component={BidDetails}/>
+        <Route  path="/bid/" component={Bid}/>
                   </div>
                 </Switch>
       </Router>
