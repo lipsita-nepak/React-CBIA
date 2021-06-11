@@ -1,107 +1,91 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import FarmerService from "../services/farmerService";
+  
+class AddFarmer extends Component{
+    constructor(props){
+        super(props)
 
-class AddFarmer extends Component {
-  state = {
-    farmer: {
-      name: "",
-      emailId: "",
-      contactNumber: "",
-      aadharNumber:"",
-      panNumber:"",
-    },
-  };
-  handleSubmit = (event) => {
-    event.preventDefault();
-    console.log("Submitted");
-    FarmerService.addFarmer(this.state.farmer).then((res) => {
-      this.props.history.push("/farmers");
-    });
-  };
-  handleChange = (event) => {
-    const farmer = { ...this.state.farmer };
-    // dynamically handling event changes
-    farmer[event.currentTarget.name] = event.currentTarget.value;
-    this.setState({ farmer });
-  };
-  render() {
-    return (
-      <div className="w-50 mx-auto">
-        <form onSubmit={this.handleSubmit}>
-          <div className="mb-3">
-            <label htmlFor="name" className="form-label">
-              Name
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="name"
-              name="name"
-              value={this.state.farmer.name}
-              onChange={this.handleChange}
-              autoFocus
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="emailId" className="form-label">
-              Email address
-            </label>
-            <input
-              type="email"
-              className="form-control"
-              id="emailId"
-              name="emailId"
-              value={this.state.farmer.emailId}
-              onChange={this.handleChange}
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="contactNumber" className="form-label">
-              Contact No
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="contactNumber"
-              name="contactNumber"
-              value={this.state.farmer.contactNumber}
-              onChange={this.handleChange}
-            />
-          </div>
-         <div className="mb-3">
-            <label htmlFor="aadharNumber" className="form-label">
-              Aadhar No
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="aadharNumber"
-              name="aadharNumber"
-              value={this.state.farmer.aadharNumber}
-              onChange={this.handleChange}
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="panNumber" className="form-label">
-              Pan No
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="panNumber"
-              name="panNumber"
-              value={this.state.farmer.panNumber}
-              onChange={this.handleChange}
-            />
-          </div>
+        this.state={
+            name :'',
+            contactNumber:'',
+            emailId:'',
+            aadharNumber:'',
+            panNumber:'',
+        }
+        this.changeFarmerNameHandler=this.changeFarmerNameHandler.bind(this);
+        this.changeFarmerContactNoHandler=this.changeFarmerContactNoHandler.bind(this);
+        this.changeFarmerEmailIdHandler=this.changeFarmerEmailIdHandler.bind(this);
+        this.changeFarmerAadharNoHandler=this.changeFarmerAadharNoHandler.bind(this);
+        this.changeFarmerPanNoHandler=this.changeFarmerPanNoHandler.bind(this);
+        this.saveFarmer=this.saveFarmer.bind(this);
+    }
+    saveFarmer= (e) =>{
+        e.preventDefault();
+        let farmer ={name:this.state.name,contactNumber:this.state.contactNumber,
+            emailId:this.state.emailId,aadharNumber:this.state.aadharNumber,panNumber:this.state.panNumber};
+        console.log('farmer=>'+JSON.stringify(farmer));
+        FarmerService.addFarmer(farmer).then(res => {
+           this.props.history.push('/farmers');
+        });
+    }
 
-          <button type="submit" className="btn btn-primary">
-            Submit
-          </button>
-        </form>
-      </div>
-    );
-  }
+    changeFarmerNameHandler= (event) => {
+        this.setState({name:event.target.value});
+    }
+    changeFarmerContactNoHandler =(event) => {
+        this.setState({contactNumber:event.target.value});
+    }
+    changeFarmerEmailIdHandler =(event) => {
+        this.setState({emailId:event.target.value});
+    }
+    changeFarmerAadharNoHandler=(event) => {
+      this.setState({aadharNumber:event.target.value});
+    }
+    changeFarmerPanNoHandler=(event) => {
+      this.setState({panNumber:event.target.value});
+    }
+    cancel(){
+        this.props.history.push('/farmers');
+    }
+render(){
+    return(
+        <div>
+            <br/><br/>
+            <div className = "container-md" >
+                <div className = "row">
+                    <div className = "card col-md-6 offset-md-3 offset-md-3">
+                        <h3 className = "text-center">Add Farmer</h3>
+                          <div className = "card-body">
+                              <form>
+                                  <div className="form-group">
+                                      <label>FarmerName</label>
+                                      <input type="text" placeholder="FarmerName" name="name" className="form-control" value={this.state.name} onChange={this.changeFarmerNameHandler}/>
+                                  </div>
+                                  <div className="form-group">
+                                      <label>ContactNumber</label>
+                                      <input type="text" placeholder="ContactNumber" name="contactNumber" className="form-control" value={this.state.contactNumber} onChange={this.changeFarmerContactNoHandler}/>
+                                  </div>
+                                  <div className="form-group">
+                                      <label>Email Id</label>
+                                      <input type="email" placeholder="EmailId" name="emailId" className="form-control" value={this.state.emailId} onChange={this.changeFarmerEmailIdHandler}/>
+                                  </div>
+                                  <div className="form-group">
+                                      <label>Aadhar Number</label>
+                                      <input type="text" placeholder="AadharNumber" name="aadharNumber" className="form-control" value={this.state.aadharNumber} onChange={this.changeFarmerAadharNoHandler}/>
+                                  </div>
+                                  <div className="form-group">
+                                      <label>Pan Number</label>
+                                      <input type="text" placeholder="PanNumber" name="panNumber" className="form-control" value={this.state.panNumber} onChange={this.changeFarmerPanNoHandler}/>
+                                  </div>
+                                  <button className="btn btn-success" onClick={this.saveFarmer}>Save</button>
+                                  <button className="btn btn-danger"  onClick={this.cancel.bind(this)} style={{marginLeft:"10px"}}>Cancel</button>
+                              </form>
+                          </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
 }
-
+}
 export default AddFarmer;
